@@ -12,8 +12,16 @@ CardActions,
 Typography
 } from '@mui/material';
 import imagenes from '../../assets/images/imagenes';
+import { useSelector, useDispatch } from 'react-redux';
+import { appSelector, appActions } from '../../redux/appRedux';
 
 const FetchList = () => {
+const dispatch = useDispatch ()
+
+  useEffect(()=>{
+    dispatch(appActions.setPageTitle('LISTAS'))
+
+  },[])
 
 return (
 <Grid container spacing={3}>

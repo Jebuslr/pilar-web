@@ -16,6 +16,8 @@ import {
     Collapse,
     Popover,
     MenuItem as MenuItemMui,
+    Divider,
+    Stack
    
 
 
@@ -25,6 +27,8 @@ import { drawerMenu, popMenu } from '../../constants/menu';
 import MenuIcon from "@mui/icons-material/Menu"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { useSelector, useDispatch } from 'react-redux';
+import { appSelector, appActions } from '../../redux/appRedux';
 
 
 const drawerWidth = 280;
@@ -172,6 +176,8 @@ const SideMenu = ({open, onClose}) => {
 
 
 const DashboardLayout =()=>{
+    const dispatch = useDispatch ()    
+    const pageTitle = useSelector(appSelector.pageTitle)
 
     const [open, setOpen] = useState(false)
 
@@ -187,16 +193,35 @@ const DashboardLayout =()=>{
          <Box px={2} sx={{cursor:'pointer'}}>
          <MenuIcon sx={{color: 'white'}} onClick={()=>setOpen(true)}/> 
         </Box>   
-          
+
+        <Stack direction="row" spacing={2}>
+
         <Typography
         component="h1"
         variant="h6"
         color="inherit"
         noWrap
-        sx={{ flexGrow: 1 }}
-        >
+        sx={{ flexGrow: 1 }}>
+
         Pilar Tecno Web
         </Typography>
+        <Divider orientation='vertical' variant='middle' flexItem sx={{color:'white'}}/>
+
+        <Typography
+        component="h1"
+        variant="h6"
+        color="inherit"
+        noWrap
+        sx={{ flexGrow: 1 }}>
+
+        {pageTitle}
+        </Typography>
+
+        </Stack>
+          
+        
+
+
         <PopMenu />
         </Toolbar>
         </AppBar>

@@ -9,20 +9,95 @@ CardMedia,
 Button,
 CardActionArea,
 CardActions,
-Typography
+Typography,
+CardHeader,
+Stack,
+Checkbox,
+
+
+
 } from '@mui/material';
 import imagenes from '../../assets/images/imagenes';
+import { useSelector, useDispatch } from 'react-redux';
+import { appSelector, appActions } from '../../redux/appRedux';
 
 const Dashboard = () => {
 
+  const todo = useSelector(appSelector.todo)
+
+  const handleChecked = (e, id)=>{
+    dispatch(appActions.setCompletedTodo({id, completed: e.target.checked}))
+  }
+
+
+  const delTask = (id)=>{
+
+    dispatch(appActions.deleteTodo(id))
+    
+    }
+
+  const dispatch = useDispatch ()
+  useEffect(()=>{
+    dispatch(appActions.setPageTitle('TABLERO'))
+
+  },[])
+
 return (
-<Grid container spacing={3}>
-    <Grid item md={12} xs={12}>
+  
+<Grid container spacing={3} >
+    <Grid item md={12} xs={12} >
     <Paper sx={{p: 2}}>
     <Box>
     Dashboard
     </Box>
+
+    
+
+    
+  <Card>
+<CardHeader title="Tareas Completadas" />
+<CardContent>
+{todo.filter((t) => t.completed).length}
+{todo.map((t, index)=>
+(
+<Stack key={t.id} sx={{justifyContent:'space-between'}} direction='row'>
+<Grid item md={9} sx={{pt: 1}}>
+</Grid>
+<Grid item md={2}>
+</Grid>
+</Stack>
+)
+)}
+</CardContent>
+</Card>
+
+    <Grid item md={12} xs={12} >
+  <Card>
+<CardHeader title="Tareas pendientes" />
+<CardContent>
+{todo.filter((t) => !t.completed).length}
+{todo.map((t, index)=>
+(
+<Stack key={t.id} sx={{justifyContent:'space-between'}} direction='row'>
+<Grid item md={2}>
+
+</Grid>
+</Stack>
+)
+)}
+</CardContent>
+</Card>
+
+
+
+</Grid>
+
+
+
+    
+    
     </Paper>
+    
     </Grid>
 
           <Grid item md={4}>
@@ -33,8 +108,7 @@ return (
           <Card2/>
           </Grid>
 
-
-
+       
 </Grid>  
 
 
@@ -45,6 +119,7 @@ return (
 
 
  function Card1() {
+  
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -52,8 +127,7 @@ return (
           component="img"
           height="140"
           image={imagenes.img2}
-          alt="todolist"
-        />
+          alt="todolist"/>
         <CardContent>
           <Typography gutterBottom variant="h4" component="div">
             Todo
@@ -106,6 +180,14 @@ function Card2() {
 
   );
 }
+
+
+
+
+
+
+
+
 
 
 
