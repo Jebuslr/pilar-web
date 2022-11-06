@@ -29,7 +29,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useSelector, useDispatch } from 'react-redux';
 import { appSelector, appActions } from '../../redux/appRedux';
-
+import Loading from '../../components/Loading';
 
 const drawerWidth = 280;
 
@@ -182,6 +182,9 @@ const DashboardLayout =()=>{
     const [open, setOpen] = useState(false)
 
     return (
+        
+        <>
+        
         <Box sx={{ display: 'flex' }}>
         <AppBar position="absolute">
         <Toolbar
@@ -241,10 +244,14 @@ const DashboardLayout =()=>{
         >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Outlet/>
+            <Outlet/>
         </Container>
         </Box>
         </Box>
+        <Loading/>
+        
+        
+        </>
         )
 
 
